@@ -7,11 +7,14 @@ namespace MARKET_GRUPO_01.Presentaciones
 {
     public partial class V_Productos : Form
     {
+        //Referencias
         AbrirForm AF;
         public V_Inicio inicio;
         N_Productos nProductos;
         N_UnidadMedida nUnidadMedida;
         N_Categoria nCategoria;
+
+        //contructor
         public V_Productos(V_Inicio ini)
         {
             InitializeComponent();
@@ -21,6 +24,8 @@ namespace MARKET_GRUPO_01.Presentaciones
             nCategoria = new N_Categoria();
             inicio = ini;
         }
+
+        //metodoSeleccionar Solo Un Registro
         void SeleccionarSoloUno(DataGridViewCellEventArgs e, DataGridView dgv)
         {
             if (e.ColumnIndex == 0 && e.RowIndex != -1)
@@ -33,6 +38,7 @@ namespace MARKET_GRUPO_01.Presentaciones
                 }
             }
         }
+
         void HabilitarSoloColumnaSeleccion(DataGridView dgv)
         {
             foreach (DataGridViewColumn column in dgv.Columns)
@@ -43,21 +49,20 @@ namespace MARKET_GRUPO_01.Presentaciones
         }
         void cargar()
         {
-
             if (BtnProductos.Checked)
             {
-                HabilitarSoloColumnaSeleccion(DgvProductos);
                 DgvProductos.DataSource = nProductos.ObtenerProductos();
+                HabilitarSoloColumnaSeleccion(DgvProductos);
             }
             else if (BtnCategoria.Checked)
             {
-                HabilitarSoloColumnaSeleccion(DgvCategoria);
                 DgvCategoria.DataSource = nCategoria.ObtenerCategoria();
+                HabilitarSoloColumnaSeleccion(DgvCategoria);
             }
             else if (BtnUnidadMedida.Checked)
             {
-                HabilitarSoloColumnaSeleccion(DgvUnidades);
                 DgvUnidades.DataSource = nUnidadMedida.ObtenerUnidadesMedida();
+                HabilitarSoloColumnaSeleccion(DgvUnidades);
             }
         }
         void ConsultarCategoria(int CategoriaID)
@@ -66,7 +71,7 @@ namespace MARKET_GRUPO_01.Presentaciones
             var categoria = nCategoria.ObtenerCategoria().FirstOrDefault(g => g.CategoriaId == CategoriaID);
             if (categoria != null)
             {
-                vcategoria.LblTitulo.Text = "Editar Grupo Descuento";
+                vcategoria.LblTitulo.Text = "Editar Categoria";
                 vcategoria.TxtIdCategoria.Text = categoria.CategoriaId.ToString();
                 vcategoria.TxtDescripcion.Text = categoria.Descripcion;
                 vcategoria.TxtCodigo.Text = categoria.Codigo;
@@ -80,7 +85,7 @@ namespace MARKET_GRUPO_01.Presentaciones
             var unidadMedida = nUnidadMedida.ObtenerUnidadesMedida().FirstOrDefault(g => g.UnidadMedidaId == unidadMedidaID);
             if (unidadMedida != null)
             {
-                vUnidadMedida.LblTitulo.Text = "Editar Grupo Descuento";
+                vUnidadMedida.LblTitulo.Text = "Editar Unidad Medida";
                 vUnidadMedida.TxtIdUnidadMedida.Text = unidadMedida.UnidadMedidaId.ToString();
                 vUnidadMedida.TxtDescripcion.Text = unidadMedida.Descripcion;
                 vUnidadMedida.TxtCodigo.Text = unidadMedida.Codigo;
